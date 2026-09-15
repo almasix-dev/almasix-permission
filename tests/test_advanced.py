@@ -5,10 +5,9 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-
 from almasix.events import Event
-from almasix.http.request import Request
 from almasix.prism.engine import Engine
+
 from almasix.permission.console import (
     CacheResetCommand,
     CreatePermissionCommand,
@@ -34,7 +33,9 @@ from tests.support import make_user
 @pytest.mark.asyncio
 async def test_teams_scope_roles(memory_db, app) -> None:
     app.config.set("permission.teams", True)
-    provider = __import__("almasix.permission.provider", fromlist=["PermissionServiceProvider"]).PermissionServiceProvider
+    provider = __import__(
+        "almasix.permission.provider", fromlist=["PermissionServiceProvider"]
+    ).PermissionServiceProvider
     provider(app).register()
     provider(app).boot()
 
@@ -180,6 +181,7 @@ def test_commands_create_and_show(migrated, app) -> None:
 
 def test_provider_publishes_and_aliases(app) -> None:
     from almasix.providers.provider import ServiceProvider
+
     from almasix.permission.provider import PermissionServiceProvider
 
     ServiceProvider.forget_publishes()

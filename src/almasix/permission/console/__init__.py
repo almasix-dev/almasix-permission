@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from almasix.console.command import Command
+
 from almasix.permission.helpers import get_default_guard_name, get_permission_class, get_role_class
 from almasix.permission.registrar import get_permission_registrar
 

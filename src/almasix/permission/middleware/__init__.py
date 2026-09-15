@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing import Any
 
+from almasix.http.middleware import Middleware, NextCall
 from starlette.responses import Response as StarletteResponse
 
-from almasix.http.middleware import Middleware, NextCall
 from almasix.permission.exceptions import UnauthorizedException
 from almasix.permission.helpers import collect_names, permission_config
 

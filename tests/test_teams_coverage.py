@@ -7,8 +7,8 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-
 from almasix.orm import Schema
+
 from almasix.permission.models.permission import Permission
 from almasix.permission.models.role import Role
 from almasix.permission.provider import PermissionServiceProvider
@@ -86,6 +86,7 @@ async def test_users_empty_without_default_model(memory_db, app) -> None:
 @pytest.mark.asyncio
 async def test_middleware_permission_warm_cache_false_path(migrated) -> None:
     from almasix.http import ForbiddenHttpException
+
     from almasix.permission.middleware import PermissionMiddleware
 
     user = await make_user()

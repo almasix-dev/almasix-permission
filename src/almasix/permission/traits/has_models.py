@@ -51,17 +51,15 @@ class HasModels:
         table = table_names().get("model_has_roles") or "model_has_roles"
         morph_key = model_morph_key()
         pivot_key = role_pivot_key()
-        rows = await (
-            QueryBuilder.for_table(table)
-            .where(pivot_key, "=", self.get_key())
-            .get_raw()
-        )
+        rows = await QueryBuilder.for_table(table).where(pivot_key, "=", self.get_key()).get_raw()
         default_path = permission_config("models.default_model")
         if not default_path or not rows:
             return []
         from almasix.permission.helpers import import_string
 
-        model_cls = import_string(str(default_path)) if isinstance(default_path, str) else default_path
+        model_cls = (
+            import_string(str(default_path)) if isinstance(default_path, str) else default_path
+        )
         ids = [row[morph_key] for row in rows if row.get("model_type") == morph_alias(model_cls)]
         if not ids:
             return []

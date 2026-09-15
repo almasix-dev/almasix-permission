@@ -22,7 +22,9 @@ class CreatePermissionTables(Migration):
         key_type = str(permission_config("key_type") or "int")
 
         await Schema.create(names.get("permissions") or "permissions", self._permissions)
-        await Schema.create(names.get("roles") or "roles", lambda t: self._roles(t, teams, key_type))
+        await Schema.create(
+            names.get("roles") or "roles", lambda t: self._roles(t, teams, key_type)
+        )
         await Schema.create(
             names.get("model_has_permissions") or "model_has_permissions",
             lambda t: self._model_has_permissions(t, teams, key_type),

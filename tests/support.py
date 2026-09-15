@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from almasix.auth import AuthenticatableMixin
 from almasix.orm import Model
+
 from almasix.permission.traits.has_roles import HasRoles
 
 

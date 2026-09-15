@@ -7,7 +7,11 @@ from typing import Any
 from almasix.orm import relation
 from almasix.orm.morph import morph_alias
 
-from almasix.permission.events import PermissionAttachedEvent, PermissionDetachedEvent, dispatch_event
+from almasix.permission.events import (
+    PermissionAttachedEvent,
+    PermissionDetachedEvent,
+    dispatch_event,
+)
 from almasix.permission.exceptions import GuardDoesNotMatch
 from almasix.permission.helpers import (
     collect_names,
@@ -141,7 +145,6 @@ class HasPermissions:
         table = table_names().get("model_has_permissions") or "model_has_permissions"
         morph_type = morph_alias(type(self))
         morph_key = model_morph_key()
-        pivot_key = permission_pivot_key()
         builder = (
             QueryBuilder.for_table(table)
             .where(morph_key, "=", self.get_key())
@@ -187,9 +190,7 @@ class HasPermissions:
         all_perms = await self.get_all_permissions()
         guard = guard_name or guard_name_for(self)
         names = {
-            normalize_name(p.name)
-            for p in all_perms
-            if getattr(p, "guard_name", guard) == guard
+            normalize_name(p.name) for p in all_perms if getattr(p, "guard_name", guard) == guard
         }
         self._permission_name_cache = names
         return names

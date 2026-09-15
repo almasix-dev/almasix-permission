@@ -7,6 +7,7 @@ from unittest.mock import patch
 
 import pytest
 from almasix.prism.engine import Engine
+
 from almasix.permission.helpers import (
     get_default_guard_name,
     guard_name_for,
@@ -17,7 +18,7 @@ from almasix.permission.models.role import Role
 from almasix.permission.provider import PermissionServiceProvider
 from almasix.permission.registrar import PermissionRegistrar
 from almasix.permission.wildcard import WildcardPermission
-from tests.support import User, make_user
+from tests.support import make_user
 
 
 def test_resolve_model_class_accepts_type(app) -> None:
@@ -60,8 +61,8 @@ async def test_registrar_reads_cache_store(migrated) -> None:
 
 @pytest.mark.asyncio
 async def test_role_find_by_id_teams(memory_db, app) -> None:
-    from tests.test_teams_coverage import _migrate_teams
     from almasix.permission.teams import set_permissions_team_id
+    from tests.test_teams_coverage import _migrate_teams
 
     await _migrate_teams(app)
     set_permissions_team_id(1)
@@ -74,6 +75,7 @@ async def test_role_find_by_id_teams(memory_db, app) -> None:
 async def test_users_wrong_morph_returns_empty(migrated, app) -> None:
     app.config.set("permission.models.default_model", "tests.support.User")
     role = await Role.create(name="writer")
+
     # Attach a bare model morph type that won't match User
     class Bare:
         def get_key(self) -> int:

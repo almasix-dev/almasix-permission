@@ -80,6 +80,7 @@ class PermissionServiceProvider(ServiceProvider):
         if not permission_config("register_permission_check_method", True):
             return
         from almasix.auth.access.facade import Gate
+
         from almasix.permission.registrar import get_permission_registrar
 
         registrar = get_permission_registrar()
@@ -103,6 +104,7 @@ class PermissionServiceProvider(ServiceProvider):
     def _register_prism(self) -> None:
         try:
             from almasix.prism.engine import Engine
+
             from almasix.permission.prism import register_prism_directives
 
             if self.app.container.bound(Engine):

@@ -4,12 +4,12 @@ from __future__ import annotations
 
 from enum import Enum
 from typing import Any
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pytest
-
 from almasix.auth.access.facade import Gate
 from almasix.http import ForbiddenHttpException
+
 from almasix.permission.exceptions import (
     PermissionDoesNotExist,
     RoleDoesNotExist,
@@ -21,7 +21,6 @@ from almasix.permission.helpers import (
     get_default_guard_name,
     guard_name_for,
     import_string,
-    permission_config,
     resolve_model_class,
 )
 from almasix.permission.middleware import (
@@ -40,8 +39,12 @@ from almasix.permission.prism import (
     permission_has_role,
 )
 from almasix.permission.registrar import PermissionRegistrar, get_permission_registrar
-from almasix.permission.teams import DefaultTeamResolver, clear_permissions_team_id, set_permissions_team_id
-from almasix.permission.traits.has_models import HasModels, _flatten_models
+from almasix.permission.teams import (
+    DefaultTeamResolver,
+    clear_permissions_team_id,
+    set_permissions_team_id,
+)
+from almasix.permission.traits.has_models import _flatten_models
 from almasix.permission.wildcard import WildcardPermission
 from tests.support import User, make_user
 
@@ -153,7 +156,7 @@ def test_teams_resolver() -> None:
     clear_permissions_team_id()
     assert DefaultTeamResolver().resolve() is None
     set_permissions_team_id(9)
-    assert get_permission_registrar()  # noqa — ensure import
+    assert get_permission_registrar()
     from almasix.permission.teams import get_permissions_team_id
 
     assert get_permissions_team_id() == 9

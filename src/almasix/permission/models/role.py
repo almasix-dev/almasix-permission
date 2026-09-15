@@ -29,7 +29,7 @@ class Role(HasPermissions, HasModels, Model):
 
     @classmethod
     def get_table(cls) -> str:
-        return str((table_names().get("roles") or "roles"))
+        return str(table_names().get("roles") or "roles")
 
     @relation
     def permissions(self) -> Any:
@@ -44,11 +44,7 @@ class Role(HasPermissions, HasModels, Model):
         attrs.setdefault("guard_name", get_default_guard_name())
         if teams_enabled():
             attrs.setdefault(team_foreign_key(), get_permissions_team_id())
-        query = (
-            cls.query()
-            .where("name", attrs["name"])
-            .where("guard_name", attrs["guard_name"])
-        )
+        query = cls.query().where("name", attrs["name"]).where("guard_name", attrs["guard_name"])
         if teams_enabled():
             query = query.where(team_foreign_key(), attrs.get(team_foreign_key()))
         if await query.first() is not None:
@@ -60,11 +56,7 @@ class Role(HasPermissions, HasModels, Model):
     @classmethod
     async def find_by_name(cls, name: str, guard_name: str | None = None) -> Any:
         guard = guard_name or get_default_guard_name()
-        query = (
-            cls.query()
-            .where("name", normalize_name(name))
-            .where("guard_name", guard)
-        )
+        query = cls.query().where("name", normalize_name(name)).where("guard_name", guard)
         if teams_enabled():
             query = query.where(team_foreign_key(), get_permissions_team_id())
         found = await query.first()

@@ -11,7 +11,6 @@ from almasix.permission.helpers import (
     get_default_guard_name,
     get_role_class,
     normalize_name,
-    permission_config,
     table_names,
 )
 from almasix.permission.registrar import get_permission_registrar
@@ -28,7 +27,7 @@ class Permission(Model):
 
     @classmethod
     def get_table(cls) -> str:
-        return str((table_names().get("permissions") or "permissions"))
+        return str(table_names().get("permissions") or "permissions")
 
     @relation
     def roles(self) -> Any:
@@ -57,10 +56,7 @@ class Permission(Model):
     async def find_by_name(cls, name: str, guard_name: str | None = None) -> Any:
         guard = guard_name or get_default_guard_name()
         found = (
-            await cls.query()
-            .where("name", normalize_name(name))
-            .where("guard_name", guard)
-            .first()
+            await cls.query().where("name", normalize_name(name)).where("guard_name", guard).first()
         )
         if found is None:
             raise PermissionDoesNotExist(normalize_name(name), guard)

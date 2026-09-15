@@ -8,7 +8,7 @@ from almasix.orm import relation
 from almasix.orm.morph import morph_alias
 
 from almasix.permission.events import RoleAttachedEvent, RoleDetachedEvent, dispatch_event
-from almasix.permission.exceptions import GuardDoesNotMatch, RoleDoesNotExist
+from almasix.permission.exceptions import GuardDoesNotMatch
 from almasix.permission.helpers import (
     collect_names,
     get_role_class,
@@ -81,9 +81,7 @@ class HasRoles(HasPermissions):
         await self.roles().attach([r.get_key() for r in items], attrs)
         self.forget_cached_roles()
         dispatch_event(
-            RoleAttachedEvent(
-                self, items, get_permissions_team_id() if teams_enabled() else None
-            )
+            RoleAttachedEvent(self, items, get_permissions_team_id() if teams_enabled() else None)
         )
         return self
 
@@ -93,9 +91,7 @@ class HasRoles(HasPermissions):
             await self.roles().detach([r.get_key() for r in items])
         self.forget_cached_roles()
         dispatch_event(
-            RoleDetachedEvent(
-                self, items, get_permissions_team_id() if teams_enabled() else None
-            )
+            RoleDetachedEvent(self, items, get_permissions_team_id() if teams_enabled() else None)
         )
         return self
 
@@ -143,9 +139,7 @@ class HasRoles(HasPermissions):
         roles = await self.roles().get()
         expected = guard or guard_name_for(self)
         names = {
-            normalize_name(r.name)
-            for r in roles
-            if getattr(r, "guard_name", expected) == expected
+            normalize_name(r.name) for r in roles if getattr(r, "guard_name", expected) == expected
         }
         self._role_name_cache = names
         return names
