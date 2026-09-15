@@ -1,0 +1,23 @@
+---
+description: Locked product/architecture decisions for almasix-permission
+alwaysApply: true
+---
+
+# almasix-permission
+
+Standalone Almasix RBAC package. Full Spatie Laravel Permission v8 *feature*
+target without Spatie branding in docs. Not an Almasix PLAN/SMOKE/progress
+milestone — own tests and `make test-cov` ≥98% on `almasix.permission`.
+
+## Namespaces (do not regress)
+
+- Dist: `almasix-permission`
+- Import: `almasix.permission` under `src/almasix/permission/` (PEP 420; no
+  `src/almasix/__init__.py`)
+- Config key in apps: `permission.*` via `config("permission…")` — never
+  `config("almasix.permission…")`
+- Provider entry: `almasix.permission.provider:PermissionServiceProvider`
+- GitHub: `almasix-dev/permission`; local dir: `almasix-permission`
+
+Migrations: slug-only sources; timestamps only on publish. Prefer fixing
+coverage/tests in this repo over changing the almasix core for package demos.
