@@ -1,0 +1,46 @@
+name: Publish (API token fallback)
+
+# Use when Trusted Publishing pending publishers are not yet registered.
+# Create a PyPI API token (scope: entire account or project), then:
+#   gh secret set PYPI_API_TOKEN -R almasix-dev/permission
+# and run this workflow (Actions → Publish token → Run workflow → pypi).
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Index to publish to
+        type: choice
+        options: [testpypi, pypi]
+        default: pypi
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Build
+        run: |
+          pip install build twine
+          python -m build
+          twine check --strict dist/*
+      - name: Publish
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          if [ -z "$TWINE_PASSWORD" ]; then
+            echo "::error::Set repository secret PYPI_API_TOKEN"
+            exit 1
+          fi
+          if [ "${{ inputs.target }}" = "testpypi" ]; then
+            twine upload --repository testpypi dist/*
+          else
+            twine upload dist/*
+          fi
