@@ -11,3 +11,8 @@ build/
 *.egg
 .DS_Store
 .idea/
+
+# Docs site
+website/node_modules/
+website/dist/
+website/.astro/

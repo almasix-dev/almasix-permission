@@ -10,6 +10,8 @@
 
 Roles and permissions for [Almasix](https://github.com/almasix-dev/almasix).
 
+Docs: [permission.almasix.com](https://permission.almasix.com/).
+
 Install as `almasix.permission`:
 
 ```bash
