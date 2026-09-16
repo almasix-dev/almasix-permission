@@ -114,3 +114,72 @@ jobs:
           name: dist
           path: dist
       - uses: pypa/gh-action-pypi-publish@release/v1
+
+  bust-pypi-badge:
+    name: Bust PyPI badge cache
+    # After a successful PyPI upload, rewrite README ?v= so GitHub Camo /
+    # Shields treat the badge URL as new and refetch the live version.
+    if: needs.pypi.result == 'success'
+    needs: [pypi]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          # Optional PAT when branch protection blocks GITHUB_TOKEN pushes.
+          token: ${{ secrets.BADGE_BUST_TOKEN || secrets.GITHUB_TOKEN }}
+      - name: Resolve published version
+        id: ver
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          else
+            packaged=$(python3 -c "import tomllib, pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'])")
+            echo "version=$packaged" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Point README badge cache-buster at this version
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+        run: |
+          python3 <<'PY'
+          import os
+          import pathlib
+          import re
+
+          version = os.environ["VERSION"]
+          path = pathlib.Path("README.md")
+          text = path.read_text(encoding="utf-8")
+          pattern = re.compile(
+              r"(https://img\.shields\.io/pypi/v/almasix-permission\?)([^\s\"]+)"
+          )
+
+          def repl(match: re.Match[str]) -> str:
+              query = match.group(2)
+              parts = [p for p in query.split("&") if p and not p.startswith("v=")]
+              parts.append(f"v={version}")
+              return match.group(1) + "&".join(parts)
+
+          new_text, n = pattern.subn(repl, text, count=1)
+          if n != 1:
+              raise SystemExit(f"expected 1 PyPI badge URL in README.md, found {n}")
+          if new_text == text:
+              print(f"README already points at v={version}")
+          else:
+              path.write_text(new_text, encoding="utf-8")
+              print(f"Updated badge cache-buster to v={version}")
+          PY
+      - name: Commit and push
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if git diff --staged --quiet; then
+            echo "No README change to push"
+            exit 0
+          fi
+          git commit -m "Bust PyPI badge cache for v${VERSION}"
+          git push origin HEAD:main
