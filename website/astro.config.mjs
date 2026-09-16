@@ -71,10 +71,10 @@ export default defineConfig({
 				},
 			],
 			sidebar: [
+				{ label: 'Home', slug: 'index' },
 				{
 					label: 'Permission',
 					items: [
-						{ label: 'Introduction', slug: 'index' },
 						{ label: 'Installation', slug: 'installation' },
 						{ label: 'Roles', slug: 'roles' },
 						{ label: 'Permissions', slug: 'permissions' },

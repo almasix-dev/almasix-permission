@@ -245,14 +245,14 @@ a.sl-link-button.primary:hover {
 	color: var(--0, var(--ec-codeFg)) !important;
 }
 
-/* Brand wordmark — fit inside the padded topbar (no clip) */
+/* Brand wordmark + product suffix live in SiteTitle.astro */
 .site-title {
 	padding: 0;
-	gap: 0;
+	gap: 0.55rem;
 	color: var(--sl-color-white);
 }
 
-.site-title img {
+.site-title-mark img {
 	height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y)) !important;
 	width: auto !important;
 	max-width: none !important;

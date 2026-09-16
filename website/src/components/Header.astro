@@ -14,8 +14,6 @@ const shouldRenderSearch =
 <div class="header">
 	<div class="title-wrapper sl-flex">
 		<SiteTitle />
-		<a class="hub-link" href="https://almasix.com/packages">Packages</a>
-		<a class="hub-link" href="https://docs.almasix.com/">Framework</a>
 	</div>
 	<div class="sl-flex print:hidden">
 		{shouldRenderSearch && <Search />}
@@ -46,18 +44,6 @@ const shouldRenderSearch =
 			min-width: 0;
 			align-items: center;
 			gap: 0.85rem;
-		}
-
-		.hub-link {
-			font-size: var(--sl-text-sm);
-			font-weight: 600;
-			color: var(--sl-color-text-accent);
-			text-decoration: none;
-			white-space: nowrap;
-			flex-shrink: 0;
-		}
-		.hub-link:hover {
-			color: var(--sl-color-white);
 		}
 
 		.right-group,
