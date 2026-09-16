@@ -21,7 +21,7 @@ almasix monorepo).
 | Layer | Value |
 | --- | --- |
 | Local path | `/home/smaosa/Projects/almasix-permission` (renamed from `permission`) |
-| GitHub | https://github.com/almasix-dev/permission |
+| GitHub | https://github.com/almasix-dev/almasix-permission |
 | Dist / PyPI | `almasix-permission` |
 | Import | `almasix.permission` (PEP 420 under `src/almasix/`; **no** `almasix/__init__.py`) |
 | Provider entry | `permission = "almasix.permission.provider:PermissionServiceProvider"` |
@@ -86,7 +86,7 @@ UUID/ULID via `permission.key_type` before migrate, extend via
 - **Release:** GitHub Release on `vX.Y.Z` matching `project.version`; OIDC
   publish (see `PUBLISHING.md`). Token fallback: `publish-token.yml`.
 - **Not yet on PyPI** until first publish; monorepo CI falls back to
-  `git+https://github.com/almasix-dev/permission.git@main`.
+  `git+https://github.com/almasix-dev/almasix-permission.git@main`.
 
 ## Monorepo coupling (almasix)
 

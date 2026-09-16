@@ -124,6 +124,14 @@ class HasRoles(HasPermissions):
 
     def has_role(self, role: Any, guard: str | None = None) -> bool:
         names = collect_names(role)
+        if guard is not None:
+            try:
+                from almasix.permission.traits.has_permissions import _run
+
+                cached = set(_run(self._load_role_names(guard)))
+            except Exception:  # pragma: no cover
+                return False
+            return any(name in cached for name in names)
         cached = self._role_name_cache
         if cached is None:
             try:
@@ -141,7 +149,8 @@ class HasRoles(HasPermissions):
         names = {
             normalize_name(r.name) for r in roles if getattr(r, "guard_name", expected) == expected
         }
-        self._role_name_cache = names
+        if guard is None:
+            self._role_name_cache = names
         return names
 
     def has_any_role(self, *roles: Any) -> bool:

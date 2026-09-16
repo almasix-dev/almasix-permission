@@ -11,7 +11,7 @@ PyPI owner:
 |-------|-------|
 | PyPI Project Name | `almasix-permission` |
 | Owner | `almasix-dev` |
-| Repository name | `permission` |
+| Repository name | `almasix-permission` |
 | Workflow name | `publish.yml` |
 | Environment name | `pypi` |
 

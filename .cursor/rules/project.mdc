@@ -17,7 +17,7 @@ milestone — own tests and `make test-cov` ≥98% on `almasix.permission`.
 - Config key in apps: `permission.*` via `config("permission…")` — never
   `config("almasix.permission…")`
 - Provider entry: `almasix.permission.provider:PermissionServiceProvider`
-- GitHub: `almasix-dev/permission`; local dir: `almasix-permission`
+- GitHub: `almasix-dev/almasix-permission`; local dir: `almasix-permission`
 
 Migrations: slug-only sources; timestamps only on publish. Prefer fixing
 coverage/tests in this repo over changing the almasix core for package demos.

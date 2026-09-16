@@ -129,8 +129,8 @@ async def test_has_models_sync_and_users(migrated, app) -> None:
     users = await role.users()
     assert len(users) >= 1
     await role.remove_from_models(u1)
-    with pytest.raises(TypeError):
-        _flatten_models(1)
+    assert _flatten_models(1) == [1]
+    assert _flatten_models(None) == []
 
 
 @pytest.mark.asyncio
