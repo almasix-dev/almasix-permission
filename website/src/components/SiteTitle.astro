@@ -70,6 +70,7 @@ const productSuffix =
 			min-width: 0;
 			margin: 0;
 			padding: 0;
+			line-height: 0;
 		}
 		.site-title-mark img {
 			display: block;
@@ -81,21 +82,27 @@ const productSuffix =
 			margin: 0;
 			padding: 0;
 		}
+		/*
+		 * Match the banner wordmark baseline: same box height as the mark, flush
+		 * to the bottom. Cap letters leave descender space under the baseline, so
+		 * a tight line-height keeps the suffix on the ink line instead of floating.
+		 */
 		.site-title-product {
 			display: inline-flex;
 			align-items: flex-end;
 			gap: 0;
+			box-sizing: border-box;
+			height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
 			margin: 0;
-			padding: 0 0 0.1rem;
+			padding: 0;
 			text-decoration: none;
 			flex-shrink: 0;
-			line-height: 1;
 		}
 		.site-title-dot {
 			display: block;
 			width: 0.38rem;
 			height: 0.38rem;
-			margin: 0 0 0.06rem;
+			margin: 0;
 			border-radius: 50%;
 			background: #f1511b;
 			flex-shrink: 0;
@@ -106,7 +113,7 @@ const productSuffix =
 			font-weight: 900;
 			font-synthesis: none;
 			letter-spacing: 0.04em;
-			line-height: 1;
+			line-height: 0.72;
 			color: #286291;
 			-webkit-text-stroke: 0.35px currentColor;
 			paint-order: stroke fill;
