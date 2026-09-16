@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
-"""Compose assets/almasix-version-badge.svg from the label plate + live Shields badge."""
+"""Compose assets/almasix-version-badge.svg from the label plate + supported Almasix range."""
 
 from __future__ import annotations
 
 import re
+import tomllib
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LABEL = ROOT / "assets" / "almasix-badge-label.svg"
+PYPROJECT = ROOT / "pyproject.toml"
 OUT = ROOT / "assets" / "almasix-version-badge.svg"
-SHIELDS = "https://img.shields.io/pypi/v/almasix?style=for-the-badge&label=&color=4c1d95"
+COLOR = "4c1d95"
 
 
 def _dims(svg: str) -> tuple[float, float]:
@@ -27,20 +30,51 @@ def _inner(svg: str) -> str:
     return re.sub(r"<title>[^<]*</title>\s*", "", body)
 
 
+def _almasix_specifier() -> str:
+    """Return the Almasix version constraint from project.dependencies (e.g. ``>=0.9.0``)."""
+    data = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
+    for dep in data.get("project", {}).get("dependencies", []):
+        text = str(dep).strip()
+        if text == "almasix" or text.startswith("almasix ") or text.startswith("almasix["):
+            return "*"
+        if text.startswith("almasix"):
+            # Strip extras: almasix[foo]>=1.0 → >=1.0
+            rest = text[len("almasix") :]
+            if rest.startswith("["):
+                rest = rest.split("]", 1)[-1]
+            return rest.strip() or "*"
+    raise SystemExit("almasix dependency not found in pyproject.toml")
+
+
+def _shields_url(message: str) -> str:
+    query = urllib.parse.urlencode(
+        {
+            "style": "for-the-badge",
+            "label": "",
+            "message": message,
+            "color": COLOR,
+        }
+    )
+    return f"https://img.shields.io/static/v1?{query}"
+
+
 def main() -> None:
+    specifier = _almasix_specifier()
     label = LABEL.read_text(encoding="utf-8")
     label_w, label_h = _dims(label)
-    req = urllib.request.Request(SHIELDS, headers={"User-Agent": "almasix-permission-badge/1.0"})
+    req = urllib.request.Request(
+        _shields_url(specifier),
+        headers={"User-Agent": "almasix-permission-badge/1.0"},
+    )
     with urllib.request.urlopen(req) as resp:
         value = resp.read().decode("utf-8")
     value_w, value_h = _dims(value)
-    title_m = re.search(r"<title>([^<]*)</title>", value)
-    version_title = title_m.group(1) if title_m else "almasix"
     total_w = label_w + value_w
     combined = (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{total_w}" height="{label_h}" '
-        f'viewBox="0 0 {total_w} {label_h}" role="img" aria-label="Almasix {version_title}">\n'
-        f"  <title>Almasix {version_title}</title>\n"
+        f'viewBox="0 0 {total_w} {label_h}" role="img" '
+        f'aria-label="Almasix {specifier}">\n'
+        f"  <title>Almasix {specifier}</title>\n"
         f'  <svg x="0" y="0" width="{label_w}" height="{label_h}" '
         f'viewBox="0 0 {label_w} {label_h}">\n'
         f"{_inner(label)}\n"
@@ -52,7 +86,7 @@ def main() -> None:
         f"</svg>\n"
     )
     OUT.write_text(combined, encoding="utf-8")
-    print(f"wrote {OUT.relative_to(ROOT)} ({total_w}x{label_h}) {version_title}")
+    print(f"wrote {OUT.relative_to(ROOT)} ({total_w}x{label_h}) {specifier}")
 
 
 if __name__ == "__main__":
