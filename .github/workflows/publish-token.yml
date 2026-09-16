@@ -2,7 +2,7 @@ name: Publish (API token fallback)
 
 # Use when Trusted Publishing pending publishers are not yet registered.
 # Create a PyPI API token (scope: entire account or project), then:
-#   gh secret set PYPI_API_TOKEN -R almasix-dev/permission
+#   gh secret set PYPI_API_TOKEN -R almasix-dev/almasix-permission
 # and run this workflow (Actions → Publish token → Run workflow → pypi).
 
 on:

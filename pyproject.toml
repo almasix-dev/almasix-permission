@@ -27,10 +27,10 @@ dev = [
 permission = "almasix.permission.provider:PermissionServiceProvider"
 
 [project.urls]
-Homepage = "https://github.com/almasix-dev/permission"
-Repository = "https://github.com/almasix-dev/permission"
+Homepage = "https://github.com/almasix-dev/almasix-permission"
+Repository = "https://github.com/almasix-dev/almasix-permission"
 Documentation = "https://almasix-dev.github.io/almasix/"
-Issues = "https://github.com/almasix-dev/permission/issues"
+Issues = "https://github.com/almasix-dev/almasix-permission/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/almasix"]
