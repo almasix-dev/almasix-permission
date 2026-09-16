@@ -7,7 +7,7 @@
  * Default :root is DARK; light overrides live under [data-theme='light'].
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
 	--almasix-orange: #f1511b;
@@ -248,7 +248,7 @@ a.sl-link-button.primary:hover {
 /* Brand wordmark + product suffix live in SiteTitle.astro */
 .site-title {
 	padding: 0;
-	gap: 0.55rem;
+	gap: 0 !important;
 	color: var(--sl-color-white);
 }
 
@@ -261,7 +261,7 @@ a.sl-link-button.primary:hover {
 	margin: 0;
 	border-radius: 0;
 	object-fit: contain;
-	object-position: left center;
+	object-position: left bottom;
 }
 
 header.header {

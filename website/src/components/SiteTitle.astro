@@ -50,7 +50,7 @@ const productSuffix =
 		}
 	</a>
 	<a class="site-title-product" href={homeHref} translate="no">
-		<span class="site-title-dot" aria-hidden="true">.</span>
+		<span class="site-title-dot" aria-hidden="true"></span>
 		<span class="site-title-suffix">{productSuffix}</span>
 	</a>
 </div>
@@ -59,7 +59,7 @@ const productSuffix =
 	@layer starlight.core {
 		.site-title {
 			align-items: flex-end;
-			gap: 0.1rem;
+			gap: 0;
 			min-width: 0;
 			white-space: nowrap;
 		}
@@ -68,36 +68,48 @@ const productSuffix =
 			align-items: flex-end;
 			text-decoration: none;
 			min-width: 0;
+			margin: 0;
+			padding: 0;
 		}
 		.site-title-mark img {
+			display: block;
 			height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
 			width: auto;
 			max-width: 100%;
 			object-fit: contain;
 			object-position: 0 100%;
+			margin: 0;
+			padding: 0;
 		}
 		.site-title-product {
 			display: inline-flex;
 			align-items: flex-end;
 			gap: 0;
-			font-family: var(--sl-font);
-			line-height: 1;
+			margin: 0;
+			padding: 0 0 0.1rem;
 			text-decoration: none;
 			flex-shrink: 0;
-			padding-bottom: 0.12rem;
+			line-height: 1;
 		}
 		.site-title-dot {
-			font-size: 1.05rem;
-			font-weight: 900;
-			line-height: 1;
-			color: #f1511b;
+			display: block;
+			width: 0.38rem;
+			height: 0.38rem;
+			margin: 0 0 0.06rem;
+			border-radius: 50%;
+			background: #f1511b;
+			flex-shrink: 0;
 		}
 		.site-title-suffix {
+			font-family: var(--sl-font);
 			font-size: 0.78rem;
 			font-weight: 900;
-			letter-spacing: 0.06em;
+			font-synthesis: none;
+			letter-spacing: 0.04em;
 			line-height: 1;
 			color: #286291;
+			-webkit-text-stroke: 0.35px currentColor;
+			paint-order: stroke fill;
 		}
 		.site-title-product:hover .site-title-suffix {
 			color: #4a9bc9;
