@@ -72,6 +72,36 @@ export default defineConfig({
 					tag: 'script',
 					content: readFileSync('./src/scripts/sidebar-accordion.js', 'utf8'),
 				},
+				{
+					tag: 'meta',
+					attrs: { property: 'og:image', content: 'https://permission.almasix.com/og.png' },
+				},
+				{
+					tag: 'meta',
+					attrs: { property: 'og:image:width', content: '1200' },
+				},
+				{
+					tag: 'meta',
+					attrs: { property: 'og:image:height', content: '630' },
+				},
+				{
+					tag: 'meta',
+					attrs: { property: 'og:image:alt', content: 'Almasix Permission — Almasix' },
+				},
+				{
+					tag: 'meta',
+					attrs: { name: 'twitter:image', content: 'https://permission.almasix.com/og.png' },
+				},
+				{
+					tag: 'meta',
+					attrs: { name: 'theme-color', content: '#F1511B' },
+				},
+				{
+					tag: 'script',
+					attrs: { type: 'application/ld+json' },
+					content: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"WebSite\", \"@id\": \"https://permission.almasix.com/#website\", \"url\": \"https://permission.almasix.com/\", \"name\": \"Almasix Permission\", \"description\": \"Roles and permissions for Almasix \\u2014 HasRoles, teams, middleware, Prism directives, and smith commands.\", \"publisher\": {\"@id\": \"https://almasix.com/#organization\"}, \"inLanguage\": \"en\"}, {\"@type\": \"SoftwareApplication\", \"@id\": \"https://permission.almasix.com/#software\", \"name\": \"Almasix Permission\", \"applicationCategory\": \"DeveloperApplication\", \"url\": \"https://permission.almasix.com/\", \"isPartOf\": {\"@id\": \"https://almasix.com/#software\"}, \"publisher\": {\"@id\": \"https://almasix.com/#organization\"}}]}",
+				},
+
 			],
 			sidebar: [
 				{ label: 'Home', slug: 'index' },
