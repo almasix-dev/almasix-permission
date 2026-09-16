@@ -173,13 +173,19 @@ class HasPermissions:
             name = normalize_name(permission)
         else:
             name = normalize_name(getattr(permission, "name", permission))
-        names = self._permission_name_cache
-        if names is None:
+        if guard_name is not None:
             try:
                 names = set(_run(self._load_permission_names(guard_name)))
-                self._permission_name_cache = names
             except Exception:  # pragma: no cover - async loop + memory DB
                 return False
+        else:
+            names = self._permission_name_cache
+            if names is None:
+                try:
+                    names = set(_run(self._load_permission_names(guard_name)))
+                    self._permission_name_cache = names
+                except Exception:  # pragma: no cover - async loop + memory DB
+                    return False
         if name in names:
             return True
         if permission_config("enable_wildcard_permission", False):
@@ -192,7 +198,8 @@ class HasPermissions:
         names = {
             normalize_name(p.name) for p in all_perms if getattr(p, "guard_name", guard) == guard
         }
-        self._permission_name_cache = names
+        if guard_name is None:
+            self._permission_name_cache = names
         return names
 
     async def has_direct_permission(self, permission: Any) -> bool:

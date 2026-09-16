@@ -60,8 +60,8 @@ assert user.can("edit articles")  # via Gate.before
 | Roles | `assign_role`, `remove_role`, `sync_roles`, `has_role`, `has_any_role`, `has_all_roles`, `has_exact_roles` |
 | Teams | `set_permissions_team_id` / `get_permissions_team_id` |
 | Prism | `@role`, `@hasrole`, `@haspermission`, … |
-| Middleware | `role:`, `permission:`, `role_or_permission:` |
-| Commands | `smith permission:create-role`, `create-permission`, `show`, `assign-role`, `cache-reset`, `setup-teams` |
+| Middleware | `role:`, `permission:`, `role_or_permission:` (optional `,guard`) |
+| Commands | `smith permission:create-role` (`--team-id`), `create-permission`, `show` (`style`), `assign-role`, `cache-reset`, `setup-teams` |
 
 ## Features
 
