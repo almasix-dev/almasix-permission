@@ -18,3 +18,8 @@ PyPI owner:
 3. Optionally add a TestPyPI pending publisher with Environment `testpypi`.
 4. Cut a GitHub Release on a matching `vX.Y.Z` tag (must equal `project.version`
    in `pyproject.toml`).
+5. After PyPI upload succeeds, `publish.yml` rewrites the README PyPI badge’s
+   `&v=X.Y.Z` query so GitHub Camo / Shields refetch instead of serving a
+   stale SVG. If `main` is branch-protected against `GITHUB_TOKEN` pushes,
+   set repo secret `BADGE_BUST_TOKEN` to a PAT (or fine-grained token) with
+   contents write on this repo.

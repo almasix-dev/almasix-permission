@@ -1,7 +1,7 @@
 # almasix-permission
 
 <p align="center">
-  <a href="https://pypi.org/project/almasix-permission/"><img alt="PyPI" src="https://img.shields.io/pypi/v/almasix-permission?style=for-the-badge&label=pypi&color=4c1d95"></a>
+  <a href="https://pypi.org/project/almasix-permission/"><img alt="PyPI" src="https://img.shields.io/pypi/v/almasix-permission?style=for-the-badge&label=pypi&color=4c1d95&v=0.1.0"></a>
   <a href="https://github.com/almasix-dev/almasix-permission/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/almasix-dev/almasix-permission/ci.yml?branch=main&style=for-the-badge&label=CI&logo=githubactions&logoColor=white"></a>
   <a href="https://github.com/almasix-dev/almasix-permission/tree/main/tests"><img alt="coverage" src="https://img.shields.io/badge/coverage-100%25-31c48d?style=for-the-badge&logo=codecov&logoColor=white"></a>
   <a href="https://pypi.org/project/almasix-permission/"><img alt="python" src="https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-3776ab?style=for-the-badge&logo=python&logoColor=white"></a>
