@@ -1,0 +1,41 @@
+---
+title: Permission for Almasix
+description: Roles and permissions for Almasix — assign roles, check abilities, teams, middleware, and Prism.
+---
+
+**almasix-permission** adds roles and permissions to [Almasix](https://github.com/almasix-dev/almasix).
+Install as `almasix.permission`:
+
+```bash title="terminal"
+pip install almasix-permission
+# or from the framework extras:
+pip install "almasix[permission]"
+```
+
+```python title="app/models/user.py"
+from almasix.permission import HasRoles, Permission, Role
+```
+
+Mix `HasRoles` onto your user, create roles and permissions, then check with
+`has_permission_to` / `has_role` — or with `user.can(…)` via `Gate.before`.
+
+Framework [authorization](https://docs.almasix.com/authorization/) (Gates and
+Policies) stays separate: this package plugs into that stack so existing
+`can` checks, `@can`, and `can` middleware keep working.
+
+## Features
+
+- Roles and permissions (direct or via roles), polymorphic assignment
+- `Gate.before` so `user.can(…)`, `@can`, and `can` middleware work
+- Multi-guard namespacing
+- Teams (`permission.teams` + `set_permissions_team_id`)
+- Wildcard permissions (`permission.enable_wildcard_permission`)
+- Enum names (`enum.Enum` / `StrEnum`)
+- Cache + `permission:cache-reset`
+- Opt-in events (`permission.events_enabled`)
+- UUID/ULID via `permission.key_type` before migrate
+- Extending models through `permission.models.*`
+
+Continue with [Installation](/installation/), or jump to [Roles](/roles/),
+[Permissions](/permissions/), [Teams](/teams/),
+[Middleware and Prism](/middleware-and-prism/), or [Commands](/commands/).

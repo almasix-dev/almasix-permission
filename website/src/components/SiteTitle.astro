@@ -1,0 +1,97 @@
+---
+/**
+ * Almasix wordmark → hub (almasix.com).
+ * Product suffix (INERTIA, DOCS, …) → this docs site’s home.
+ *
+ * Logos are served from `public/` so “Open image in new tab” works.
+ */
+import config from 'virtual:starlight/user-config';
+
+const { siteTitle } = Astro.locals.starlightRoute;
+const base = import.meta.env.BASE_URL.endsWith('/')
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+const alt = config.logo?.alt || 'Almasix';
+const darkSrc = `${base}almasix-banner-dark.svg`;
+const lightSrc = `${base}almasix-banner-light.svg`;
+const dual = Boolean(config.logo && !('src' in config.logo));
+
+const hubHref = 'https://almasix.com';
+const homeHref = base;
+const productSuffix =
+	siteTitle.trim().toLowerCase() === 'almasix' ? 'DOCS' : siteTitle.trim().toUpperCase();
+---
+
+<div class="site-title sl-flex">
+	<a class="site-title-mark" href={hubHref} aria-label="Almasix home">
+		{
+			config.logo && (
+				<>
+					<img
+						class:list={{ 'light:sl-hidden print:hidden': dual }}
+						alt={alt}
+						src={darkSrc}
+						width="157"
+						height="38"
+					/>
+					{
+						dual && (
+							<img
+								class="dark:sl-hidden print:block"
+								alt=""
+								src={lightSrc}
+								width="157"
+								height="38"
+							/>
+						)
+					}
+				</>
+			)
+		}
+	</a>
+	<a class="site-title-product" href={homeHref} translate="no">{productSuffix}</a>
+</div>
+
+<style>
+	@layer starlight.core {
+		.site-title {
+			align-items: center;
+			gap: 0.55rem;
+			min-width: 0;
+			white-space: nowrap;
+		}
+		.site-title-mark {
+			display: inline-flex;
+			align-items: center;
+			text-decoration: none;
+			min-width: 0;
+		}
+		.site-title-mark img {
+			height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+			width: auto;
+			max-width: 100%;
+			object-fit: contain;
+			object-position: 0 50%;
+		}
+		.site-title-product {
+			font-family: var(--sl-font);
+			font-size: 0.78rem;
+			font-weight: 750;
+			letter-spacing: 0.06em;
+			line-height: 1;
+			color: #286291;
+			text-decoration: none;
+			flex-shrink: 0;
+			padding-block: 0.15rem;
+		}
+		.site-title-product:hover {
+			color: #4a9bc9;
+		}
+		:global(:root[data-theme='light']) .site-title-product {
+			color: #286291;
+		}
+		:global(:root[data-theme='light']) .site-title-product:hover {
+			color: #1e4a6e;
+		}
+	}
+</style>
