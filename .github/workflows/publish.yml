@@ -129,7 +129,7 @@ jobs:
         with:
           ref: main
           # Optional PAT when branch protection blocks GITHUB_TOKEN pushes.
-          token: ${{ secrets.BADGE_BUST_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.BADGE_BUST_TOKEN || github.token }}
       - name: Resolve published version
         id: ver
         run: |
