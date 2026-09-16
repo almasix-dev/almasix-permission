@@ -37,7 +37,10 @@ export default defineConfig({
 				themes: ['one-dark-pro'],
 				useStarlightDarkModeSwitch: false,
 				useStarlightUiThemeColors: false,
-				emitExternalStylesheet: false,
+				// Must stay true on Astro 7 / Sätteri: inlining puts CSS in a
+				// set:html attribute, and `pre > code` in that CSS closes the
+				// <style> tag early — frames go transparent, copy chrome breaks.
+				emitExternalStylesheet: true,
 				styleOverrides: {
 					borderRadius: '0.85rem',
 					borderWidth: '1px',
