@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://permission.almasix.com/sitemap-index.xml
