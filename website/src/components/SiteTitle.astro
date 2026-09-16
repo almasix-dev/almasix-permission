@@ -49,20 +49,23 @@ const productSuffix =
 			)
 		}
 	</a>
-	<a class="site-title-product" href={homeHref} translate="no">{productSuffix}</a>
+	<a class="site-title-product" href={homeHref} translate="no">
+		<span class="site-title-dot" aria-hidden="true">.</span>
+		<span class="site-title-suffix">{productSuffix}</span>
+	</a>
 </div>
 
 <style>
 	@layer starlight.core {
 		.site-title {
-			align-items: center;
-			gap: 0.55rem;
+			align-items: flex-end;
+			gap: 0.1rem;
 			min-width: 0;
 			white-space: nowrap;
 		}
 		.site-title-mark {
 			display: inline-flex;
-			align-items: center;
+			align-items: flex-end;
 			text-decoration: none;
 			min-width: 0;
 		}
@@ -71,26 +74,38 @@ const productSuffix =
 			width: auto;
 			max-width: 100%;
 			object-fit: contain;
-			object-position: 0 50%;
+			object-position: 0 100%;
 		}
 		.site-title-product {
+			display: inline-flex;
+			align-items: flex-end;
+			gap: 0;
 			font-family: var(--sl-font);
+			line-height: 1;
+			text-decoration: none;
+			flex-shrink: 0;
+			padding-bottom: 0.12rem;
+		}
+		.site-title-dot {
+			font-size: 1.05rem;
+			font-weight: 900;
+			line-height: 1;
+			color: #f1511b;
+		}
+		.site-title-suffix {
 			font-size: 0.78rem;
-			font-weight: 750;
+			font-weight: 900;
 			letter-spacing: 0.06em;
 			line-height: 1;
 			color: #286291;
-			text-decoration: none;
-			flex-shrink: 0;
-			padding-block: 0.15rem;
 		}
-		.site-title-product:hover {
+		.site-title-product:hover .site-title-suffix {
 			color: #4a9bc9;
 		}
-		:global(:root[data-theme='light']) .site-title-product {
+		:global(:root[data-theme='light']) .site-title-suffix {
 			color: #286291;
 		}
-		:global(:root[data-theme='light']) .site-title-product:hover {
+		:global(:root[data-theme='light']) .site-title-product:hover .site-title-suffix {
 			color: #1e4a6e;
 		}
 	}
