@@ -50,7 +50,9 @@ const productSuffix =
 		}
 	</a>
 	<a class="site-title-product" href={homeHref} translate="no">
-		<span class="site-title-dot" aria-hidden="true"></span>
+		<svg class="site-title-dot" viewBox="0 0 8 8" width="6" height="6" aria-hidden="true">
+			<circle cx="4" cy="4" r="4" fill="#F1511B"></circle>
+		</svg>
 		<span class="site-title-suffix">{productSuffix}</span>
 	</a>
 </div>
@@ -103,9 +105,8 @@ const productSuffix =
 			width: 0.38rem;
 			height: 0.38rem;
 			margin: 0;
-			border-radius: 50%;
-			background: #f1511b;
-			flex-shrink: 0;
+			flex: 0 0 auto;
+			overflow: visible;
 		}
 		.site-title-suffix {
 			font-family: var(--sl-font);
