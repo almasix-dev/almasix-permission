@@ -85,8 +85,8 @@ UUID/ULID via `permission.key_type` before migrate, extend via
 - **CI:** ruff + pytest (--cov fail_under=98) on 3.11–3.13.
 - **Release:** GitHub Release on `vX.Y.Z` matching `project.version`; OIDC
   publish (see `PUBLISHING.md`). Token fallback: `publish-token.yml`.
-- **Not yet on PyPI** until first publish; monorepo CI falls back to
-  `git+https://github.com/almasix-dev/almasix-permission.git@main`.
+  First release: **v0.1.0** on PyPI (`pip install almasix-permission`).
+  Monorepo may still pin `git+…` until it bumps to the PyPI extra.
 
 ## Monorepo coupling (almasix)
 
