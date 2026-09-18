@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Permission documentation
+    url: https://permission.almasix.com/
+    about: Roles, permissions, Gates, and Prism directives.
+  - name: Discussions
+    url: https://github.com/almasix-dev/almasix-permission/discussions
+    about: Questions, show-and-tell, and open-ended conversation (not bug trackers).
+  - name: Almasix org
+    url: https://github.com/almasix-dev
+    about: Other first-party packages and the Almasix organization.
